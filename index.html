@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Banker Products — Presentation Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-dark: #0A1A2B;
+            --bg-darker: #061320;
+            --bg-card: #0D2236;
+            --yellow: #FEE000;
+            --cyan: #18BBEE;
+            --green: #6BE084;
+            --orange: #F45E04;
+            --purple: #8B5CF6;
+            --teal: #14B8A6;
+            --text-white: #FFFFFF;
+            --text-gray: #B8C4CE;
+            --text-muted: #6B7C8C;
+            --border: #1E3448;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0D2236 100%);
+            color: var(--text-white);
+            min-height: 100vh;
+            padding: 60px 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--yellow);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        h1 .accent {
+            color: var(--cyan);
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-gray);
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+        
+        .section-icon.mvp {
+            background: var(--yellow);
+        }
+        
+        .section-icon.genai {
+            background: var(--purple);
+            color: white;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .section-title .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        .badge-yellow {
+            background: rgba(254, 224, 0, 0.2);
+            color: var(--yellow);
+        }
+        
+        .badge-purple {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--purple);
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--cyan);
+            box-shadow: 0 10px 40px rgba(24, 187, 238, 0.15);
+        }
+        
+        .card-priority {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        
+        .card-priority.p0 {
+            background: rgba(107, 224, 132, 0.2);
+            color: var(--green);
+        }
+        
+        .card-priority.p1 {
+            background: rgba(254, 224, 0, 0.2);
+            color: var(--yellow);
+        }
+        
+        .card-priority.p2 {
+            background: rgba(24, 187, 238, 0.2);
+            color: var(--cyan);
+        }
+        
+        .card-priority.p3 {
+            background: rgba(20, 184, 166, 0.2);
+            color: var(--teal);
+        }
+        
+        .card-type {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-white);
+        }
+        
+        .card-description {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .card-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 20px;
+            color: var(--cyan);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Roadmap Visual */
+        .roadmap {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid var(--border);
+        }
+        
+        .roadmap-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .roadmap-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .roadmap-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid transparent;
+        }
+        
+        .roadmap-item.active {
+            border-color: var(--green);
+            background: rgba(107, 224, 132, 0.1);
+        }
+        
+        .roadmap-item.current {
+            border-color: var(--cyan);
+            background: rgba(24, 187, 238, 0.1);
+        }
+        
+        .roadmap-item-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .roadmap-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+        
+        .roadmap-arrow {
+            color: var(--border);
+            font-size: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .footer-text a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Quick Stats */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 40px 0;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--yellow);
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">PERSONETICS</div>
+            <h1>B2B Banker <span class="accent">Products</span></h1>
+            <p class="subtitle">Presentation Hub — Vision, MVP & GenAI Demos</p>
+        </div>
+        
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Presentations</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">2</div>
+                <div class="stat-label">MVP Capabilities</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">GenAI Applications</div>
+            </div>
+        </div>
+        
+        <!-- MVP Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon mvp">MVP</div>
+                <h2 class="section-title">MVP Stream <span class="badge badge-yellow">NO GENAI REQUIRED</span></h2>
+            </div>
+            <div class="cards-grid">
+                <a href="MVP_P0_Vision_Deck.html" class="card">
+                    <span class="card-priority p0">P0</span>
+                    <div class="card-type">Foundation</div>
+                    <div class="card-title">Vision & Strategy Deck</div>
+                    <div class="card-description">
+                        Complete B2B vision, three pillars (Preparation, Recommendation, Explanation), and strategic roadmap.
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-meta-item">Start Here</span>
+                        <span class="card-meta-item">~15 min read</span>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+                
+                <a href="MVP_P1_Capabilities_Demo.html" class="card">
+                    <span class="card-priority p1">P1</span>
+                    <div class="card-type">Core Capabilities</div>
+                    <div class="card-title">MVP Capabilities Demo</div>
+                    <div class="card-description">
+                        Primacy Indicators (40+ signals) + Insights Mirror — Salesforce UX mockups and banker value proposition.
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-meta-item">$15-50M revenue potential</span>
+                        <span class="card-meta-item">Salesforce FSC</span>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- GenAI Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon genai">AI</div>
+                <h2 class="section-title">GenAI Stream <span class="badge badge-purple">ENHANCEMENT LAYER</span></h2>
+            </div>
+            <div class="cards-grid">
+                <a href="GenAI_P1_Explainer_Demo.html" class="card">
+                    <span class="card-priority p1">P1</span>
+                    <div class="card-type">Explanation Pillar</div>
+                    <div class="card-title">GenAI Explainer</div>
+                    <div class="card-description">
+                        "What Changed?" — Plain language explanations of primacy indicator changes with conversation starters and CTAs.
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-meta-item">Data Science Brief</span>
+                        <span class="card-meta-item">Research Guide</span>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+                
+                <a href="GenAI_P2_NextBestAction_Demo.html" class="card">
+                    <span class="card-priority p2">P2</span>
+                    <div class="card-type">Recommendation Pillar</div>
+                    <div class="card-title">Next Best Action</div>
+                    <div class="card-description">
+                        AI-driven recommendations — Retention, cross-sell, and upsell opportunities with 80% actionable CTAs.
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-meta-item">80% Actionable</span>
+                        <span class="card-meta-item">CTA-driven</span>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+                
+                <a href="GenAI_P3_MeetingPrep_Demo.html" class="card">
+                    <span class="card-priority p3">P3</span>
+                    <div class="card-type">Preparation Pillar</div>
+                    <div class="card-title">Meeting Prep Assistant</div>
+                    <div class="card-description">
+                        AI-generated customer briefs — 15 min prep reduced to 30 seconds. Talking points, alerts, and conversation openers.
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-meta-item">97% Time Saved</span>
+                        <span class="card-meta-item">Auto-generated briefs</span>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Roadmap -->
+        <div class="roadmap">
+            <div class="roadmap-title">Implementation Roadmap</div>
+            <div class="roadmap-flow">
+                <div class="roadmap-item active">
+                    <div class="roadmap-item-label">MVP P0</div>
+                    <div class="roadmap-item-name">Vision</div>
+                </div>
+                <span class="roadmap-arrow">→</span>
+                <div class="roadmap-item active">
+                    <div class="roadmap-item-label">MVP P1a</div>
+                    <div class="roadmap-item-name">Primacy</div>
+                </div>
+                <span class="roadmap-arrow">→</span>
+                <div class="roadmap-item active">
+                    <div class="roadmap-item-label">MVP P1b</div>
+                    <div class="roadmap-item-name">Insights</div>
+                </div>
+                <span class="roadmap-arrow">→</span>
+                <div class="roadmap-item current">
+                    <div class="roadmap-item-label">GenAI P1</div>
+                    <div class="roadmap-item-name">Explainer</div>
+                </div>
+                <span class="roadmap-arrow">→</span>
+                <div class="roadmap-item">
+                    <div class="roadmap-item-label">GenAI P2</div>
+                    <div class="roadmap-item-name">NBA</div>
+                </div>
+                <span class="roadmap-arrow">→</span>
+                <div class="roadmap-item">
+                    <div class="roadmap-item-label">GenAI P3</div>
+                    <div class="roadmap-item-name">Meeting Prep</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">
+                B2B Banker Products | December 2025 | Director of AI Product Management<br>
+                <a href="../03_Product_Strategy/">Strategy Documents</a> • 
+                <a href="../04_Product_Backlog/">Product Backlog</a> • 
+                <a href="../07_Integrations/">Integrations</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
