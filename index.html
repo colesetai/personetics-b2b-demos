@@ -316,6 +316,31 @@
             text-decoration: underline;
         }
         
+        /* Feedback Button */
+        .feedback-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--cyan), #0891b2);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(24, 187, 238, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feedback-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(24, 187, 238, 0.5);
+        }
+        
         /* Quick Stats */
         .stats-bar {
             display: flex;
@@ -346,6 +371,9 @@
     </style>
 </head>
 <body>
+    <a href="https://github.com/colesetai/personetics-b2b-demos/issues/new?title=Feedback&body=**Page:** Home%0A%0A**Your feedback:**%0A%0A" target="_blank" class="feedback-btn">
+        Share Feedback
+    </a>
     <div class="container">
         <div class="header">
             <div class="logo">PERSONETICS</div>
